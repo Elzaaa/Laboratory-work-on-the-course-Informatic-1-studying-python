@@ -1,0 +1,80 @@
+import random
+import simplegui
+import math
+
+# https://py3.codeskulptor.org/#user307_8yOavjCUPG_0.py
+# https://py2.codeskulptor.org/#user49_ckIpnExtjR_0.py
+
+# initialize global variables
+computer_num = 0
+upper_range = 100
+max_tries = 7
+
+# helper function to start and restart the game
+def new_game():
+    global upper_range
+    max_tries = 7
+    if (upper_range==100):
+        range100()
+    elif (upper_range==1000):
+        range1000()
+
+# define event handlers for control panel
+def range100():
+    
+    global upper_range, max_tries, computer_num
+    print ("\nNew game [1-100]")
+    upper_range = 100
+    max_tries = 7
+    computer_num = random.randrange(0,upper_range)
+    #print (computer_num)
+    return computer_num
+
+def range1000():
+    
+    global upper_range, max_tries, player_attempts, computer_num
+    print ("\nNew game [1-1000]")
+    upper_range = 1000
+    max_tries = 10
+    computer_num = random.randrange(0,upper_range)
+    #print (computer_num)
+    return computer_num
+    
+def input_guess(guess):
+    
+    global max_tries, computer_num
+    
+    guess=int(guess)
+    max_tries -= 1
+    
+    print ("\nYour tries is ", max_tries)
+    print ("Your Guess is ", guess)
+    
+    if (max_tries != 0):
+        
+        if (guess == computer_num):
+            print("Well done, you won")
+            new_game()
+        elif (guess > computer_num):
+            print("Lower!")
+        elif (guess < computer_num):
+            print("Higher!")
+            
+    else:
+        print("Number was",computer_num)
+        print("The attempts are over. Shall we try again?")
+        new_game()
+     
+    
+# create frame
+frame = simplegui.create_frame("guess the number", 200, 200)
+
+# register event handlers for control elements
+frame.add_button("Start new game [0 - 100]", range100, 200)
+frame.add_button("Start new game [0 - 1000]", range1000, 200)
+frame.add_input("Enter your guess", input_guess, 200)
+
+
+# start frame
+frame.start()
+new_game()
