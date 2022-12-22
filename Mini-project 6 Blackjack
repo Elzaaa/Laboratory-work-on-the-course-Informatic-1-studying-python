@@ -1,5 +1,6 @@
 import simplegui
 import random
+#https://py2.codeskulptor.org/#user49_wAQKCnInY7_0.py
 
 # load card sprite - 949x392 - source: jfitz.com
 CARD_SIZE = (73, 98)
